@@ -19,7 +19,32 @@ class Sensei_Lesson_Info_Block {
 	}
 
 	public function rest_api_init() {
-		// TODO
+		register_rest_field( 'lesson', 'meta', array(
+			'get_callback' => function( $lesson_arr ) {
+				$meta_keys = array( '_lesson_length', '_lesson_complexity' );
+				$response  = array();
+
+				foreach ( $meta_keys as $key ) {
+					$response[ $key ] = get_post_meta( $lesson_arr['id'], $key, true );
+				}
+
+				return $response;
+			},
+			'update_callback' => function( $meta, $lesson ) {
+				$meta_keys = array( '_lesson_length', '_lesson_complexity' );
+
+				foreach ( $meta_keys as $key ) {
+					error_log( '====' );
+					error_log( 'Key: "' . $key . '"' );
+					if ( isset( $meta[ $key ] ) ) {
+						error_log( 'Value: "' . $meta[ $key ] . '"' );
+						error_log( 'ID: "' . $lesson->ID . '"' );
+						update_post_meta( $lesson->ID, $key, $meta[ $key ] );
+						error_log( 'New value: "' . get_post_meta( $lesson->ID, $key, true ) . '"' );
+					}
+				}
+			}
+		) );
 	}
 
 	public function enqueue_block_js() {

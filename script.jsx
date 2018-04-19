@@ -2,12 +2,14 @@
 const el = wp.element.createElement,
 	registerBlockType = wp.blocks.registerBlockType,
 	{ __ } = wp.i18n,
-	{ TextControl } = wp.components;
+	{ TextControl, CheckboxControl } = wp.components;
 
 registerBlockType( 'sensei/lesson-info', {
 	title: 'Lesson Info',
 	icon: 'list-view',
 	category: 'common',
+	useOnce: true,
+	html: false,
 
 	attributes: {
 		length: {
@@ -20,36 +22,40 @@ registerBlockType( 'sensei/lesson-info', {
 			source: 'meta',
 			meta: '_lesson_complexity',
 		},
+		display: {
+			type: 'boolean',
+			default: false,
+		},
 	},
 
-	edit: function( props ) {
-		var className = props.className;
-		var title = props.attributes.title;
-		var rating = props.attributes.rating;
-
-		function updateAttr( attribute ) {
-			return function( event ) {
-				attrs = {};
-				attrs[ attribute ] = event.target.value;
-
-				props.setAttributes( attrs );
-			};
-		}
-
+	edit: function( { attributes, setAttributes, className } ) {
 		return (
-			<div>
+			<div className={ className }>
+				<CheckboxControl
+					label={ __( 'Display on the frontend?' ) }
+					checked={ attributes.display }
+					onChange={ ( display ) => setAttributes( { display } ) }
+				/>
 				<TextControl
 					type="number"
 					label={ __( 'Lesson Length' ) }
-					value={ props.attributes.length }
-					onChange={ updateAttr( 'length' ) }
+					value={ attributes.length }
+					onChange={ ( length ) => setAttributes( { length } ) }
 				/>
 			</div>
 		);
 	},
 
-	save: function() {
-		return null;
+	save: function( { attributes } ) {
+		if ( attributes.display ) {
+			return (
+				<div>
+					<em>Lesson Length: { attributes.length } minutes</em>
+				</div>
+			);
+		} else {
+			return null;
+		}
 	},
 
 } );
