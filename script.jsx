@@ -1,6 +1,8 @@
 
-var el = wp.element.createElement,
-	registerBlockType = wp.blocks.registerBlockType;
+const el = wp.element.createElement,
+	registerBlockType = wp.blocks.registerBlockType,
+	{ __ } = wp.i18n,
+	{ TextControl } = wp.components;
 
 registerBlockType( 'sensei/lesson-info', {
 	title: 'Lesson Info',
@@ -34,7 +36,16 @@ registerBlockType( 'sensei/lesson-info', {
 			};
 		}
 
-		return ( <p>Hello, World!</p> );
+		return (
+			<div>
+				<TextControl
+					type="number"
+					label={ __( 'Lesson Length' ) }
+					value={ props.attributes.length }
+					onChange={ updateAttr( 'length' ) }
+				/>
+			</div>
+		);
 	},
 
 	save: function() {
