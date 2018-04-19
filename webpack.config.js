@@ -22,8 +22,4 @@ var webpack = require( 'webpack' ),
 		]
 	};
 
-if ( 'production' === NODE_ENV ) {
-	webpackConfig.plugins.push( new webpack.optimize.UglifyJsPlugin() );
-}
-
 module.exports = webpackConfig;
