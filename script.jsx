@@ -1,6 +1,5 @@
 
-const el = wp.element.createElement,
-	registerBlockType = wp.blocks.registerBlockType,
+const registerBlockType = wp.blocks.registerBlockType,
 	{ __ } = wp.i18n,
 	{ TextControl, CheckboxControl } = wp.components;
 
@@ -9,7 +8,6 @@ registerBlockType( 'sensei/lesson-info', {
 	icon: 'list-view',
 	category: 'common',
 	useOnce: true,
-	html: false,
 
 	attributes: {
 		length: {
@@ -38,7 +36,7 @@ registerBlockType( 'sensei/lesson-info', {
 				/>
 				<TextControl
 					type="number"
-					label={ __( 'Lesson Length' ) }
+					label={ __( 'Lesson Length in minutes' ) }
 					value={ attributes.length }
 					onChange={ ( length ) => setAttributes( { length } ) }
 				/>

@@ -34,13 +34,8 @@ class Sensei_Lesson_Info_Block {
 				$meta_keys = array( '_lesson_length', '_lesson_complexity' );
 
 				foreach ( $meta_keys as $key ) {
-					error_log( '====' );
-					error_log( 'Key: "' . $key . '"' );
 					if ( isset( $meta[ $key ] ) ) {
-						error_log( 'Value: "' . $meta[ $key ] . '"' );
-						error_log( 'ID: "' . $lesson->ID . '"' );
 						update_post_meta( $lesson->ID, $key, $meta[ $key ] );
-						error_log( 'New value: "' . get_post_meta( $lesson->ID, $key, true ) . '"' );
 					}
 				}
 			}
@@ -56,7 +51,8 @@ class Sensei_Lesson_Info_Block {
 				'sensei_lesson_info_block',
 				plugins_url( 'script.js', __FILE__ ),
 				array( 'wp-blocks', 'wp-element' ),
-				'0.0.1'
+				'0.0.1',
+				false
 			);
 		}
 	}
