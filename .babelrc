@@ -1,6 +1,6 @@
 {
 	"presets": [
-		[ "env", {
+		[ "@babel/preset-env", {
 			"modules": false,
 			"targets": {
 				"browsers": [
@@ -16,7 +16,7 @@
 		} ]
 	],
 	"plugins": [
-		[ "transform-react-jsx", {
+		[ "@babel/plugin-transform-react-jsx", {
 			"pragma": "wp.element.createElement"
 		} ]
 	]
