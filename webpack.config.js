@@ -1,13 +1,14 @@
 var webpack = require( 'webpack' ),
 	NODE_ENV = process.env.NODE_ENV || 'development',
 	webpackConfig = {
+		mode: NODE_ENV,
 		entry: './script.jsx',
 		output: {
 			path: __dirname,
 			filename: 'script.js',
 		},
 		module: {
-			loaders: [
+			rules: [
 				{
 					test: /.jsx$/,
 					loader: 'babel-loader',
